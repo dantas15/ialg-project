@@ -1,14 +1,21 @@
 #include <iostream>
+#include <cstring>
+
+// helpers, utils, etc...
 #include "src/navigation.h"
 #include "src/dividers.h"
 #include "src/defaultInputs.h"
-#include "src/clearConsole.h"
 #include "src/validations.h"
 
+// Pages
 #include "src/pages/importDataFromCSV.h"
 #include "src/pages/exportDataFromCSV.h"
 
 using namespace std;
+
+void clearConsole() {
+  system("clear");
+}
 
 void renderMain()
 {

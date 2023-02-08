@@ -1,3 +1,0 @@
-void clearConsole() {
-  system("clear");
-}

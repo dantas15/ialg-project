@@ -1,3 +1,5 @@
+#pragma once
+
 void inputCommand(string &input)
 {
   showDivider();
