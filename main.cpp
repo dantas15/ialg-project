@@ -1,22 +1,71 @@
 #include <iostream>
 #include "src/navigation.h"
 #include "src/dividers.h"
+#include "src/defaultInputs.h"
+#include "src/clearConsole.h"
+#include "src/validations.h"
+
+#include "src/pages/importDataFromCSV.h"
+#include "src/pages/exportDataFromCSV.h"
 
 using namespace std;
 
-int main()
+void renderMain()
 {
-  string command;
-
-  showMainMenu();
-
   cout << "\t\tSistema de Cadastro em Arquivos com Ordenação\n";
   cout << "\t\t\tdevelopers: andre, elian, gustavo";
   cout << "\n\n* Para importar dados de um arquivo .csv, Insira '" << Navigation::IMPORT_DATA_FROM_CSV << "'";
   cout << "\n* Para exportar dados para um arquivo .csv, Insira '" << Navigation::EXPORT_DATA_FROM_CSV << "'";
+}
 
-  showDivider();
+int main()
+{
+  string input = "";
+  showMainMenu();
+  renderMain();
+  inputCommand(input);
 
-  cout << "\nInsira um comando: ";
-  cin >> command;
+  do
+  {
+    clearConsole();
+
+    string command;
+    for (char c : input)
+    {
+      if (c != ' ')
+      {
+        command += c;
+      }
+    }
+
+    if (isblank(command[0]))
+    {
+      command[0] = Navigation::MAIN_PAGE;
+    }
+
+    switch (command[0])
+    {
+    case Navigation::MAIN_PAGE:
+      showMainMenu();
+      renderMain();
+      break;
+    default:
+      break;
+    }
+
+    bool pageCommandExists = false;
+    do
+    {
+      inputCommand(input);
+      pageCommandExists = Validation::pageCommandExists(input, command[0]);
+
+      if (!pageCommandExists)
+      {
+        Validation::showInvalidCommandError();
+      }
+    } while (!pageCommandExists);
+
+  } while (Navigation::shouldLeave(input));
+
+  return EXIT_SUCCESS;
 }

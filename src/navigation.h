@@ -28,6 +28,13 @@ namespace Navigation
   const char DELETE_ITEM = 'D';
 
   // Dialog confirmations (preceds an important action)
-  char CONFIRM = 'Y';
-  char DECLINE = 'N';
+  const char CONFIRM = 'Y';
+  const char DECLINE = 'N';
+
+  bool shouldLeave(string command = "")
+  {
+    bool leaveWithoutSaving = command[0] != Navigation::LEAVE && command[1] != Navigation::LEAVE_WITHOUT_SAVING;
+    bool saveAndLeave = command[0] != Navigation::SAVE && command[1] != Navigation::SAVE_AND_LEAVE;
+    return leaveWithoutSaving || saveAndLeave;
+  }
 }
