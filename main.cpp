@@ -1,27 +1,22 @@
 #include <iostream>
-#include "src/types/navigation.h"
+#include "src/navigation.h"
+#include "src/dividers.h"
 
 using namespace std;
 
-int main () {
+int main()
+{
   string command;
 
-  cout << "--------------- Páginas ---------------";
-  cout << "\n" << Navigation::MainActions::MAIN_PAGE << " = Página inicial";
-  cout << "\t" << Navigation::ViewingAndListingActions::VIEW_ALL_ITEMS << " = visualizar todos";
-  cout << "\t" << Navigation::SearchActions::CHOOSE_FIELD_TO_SEARCH << " = pesquisa";
-  cout << "\n--------------- Comandos ---------------";
-  cout << "\t" << Navigation::MainActions::SAVE << " = salvar";
-  cout << "\t" << Navigation::MainActions::SAVE_AND_LEAVE << " = salvar e sair";
-  cout << "\t" << Navigation::MainActions::LEAVE_WITHOUT_SAVING << " = sair sem salvar";
+  showMainMenu();
 
-  cout << "\n----------------------------------------";
-
-  cout << "\t\tSistema de Cadastro em Arquivos com Ordenação";
+  cout << "\t\tSistema de Cadastro em Arquivos com Ordenação\n";
   cout << "\t\t\tdevelopers: andre, elian, gustavo";
+  cout << "\n\n* Para importar dados de um arquivo .csv, Insira '" << Navigation::IMPORT_DATA_FROM_CSV << "'";
+  cout << "\n* Para exportar dados para um arquivo .csv, Insira '" << Navigation::EXPORT_DATA_FROM_CSV << "'";
 
-  cout << "\n----------------------------------------";
+  showDivider();
 
-  cout << "Insira um comando: ";
+  cout << "\nInsira um comando: ";
   cin >> command;
 }
