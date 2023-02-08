@@ -1,4 +1,7 @@
 #pragma once
+
+using namespace std;
+
 namespace Navigation
 {
   // Main actions (available on mostly all pages)
@@ -33,8 +36,8 @@ namespace Navigation
 
   bool shouldLeave(std::string command = "")
   {
-    bool leaveWithoutSaving = command[0] != Navigation::LEAVE && command[1] != Navigation::LEAVE_WITHOUT_SAVING;
-    bool saveAndLeave = command[0] != Navigation::SAVE && command[1] != Navigation::SAVE_AND_LEAVE;
+    bool leaveWithoutSaving = command[0] == Navigation::LEAVE && command[1] == Navigation::LEAVE_WITHOUT_SAVING;
+    bool saveAndLeave = command[0] == Navigation::SAVE && command[1] == Navigation::SAVE_AND_LEAVE;
     return leaveWithoutSaving || saveAndLeave;
   }
 }

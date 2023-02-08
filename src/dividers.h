@@ -2,6 +2,11 @@
 
 using namespace std;
 
+void clearConsole()
+{
+  system("clear");
+}
+
 void showDivider()
 {
   cout << "\n\n-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n\n";
