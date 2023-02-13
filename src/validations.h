@@ -2,8 +2,6 @@
 
 namespace Validation
 {
-  using namespace Navigation;
-
   void showInvalidCommandError()
   {
     cout << "\n	(ㆆ _ ㆆ) Comando inválido. Tente novamente.\n";
@@ -11,16 +9,16 @@ namespace Validation
 
   bool pageCommandExists(string inputCommand)
   {
-    if (shouldLeave(inputCommand))
+    if (Navigation::shouldLeave(inputCommand))
     {
       return true;
     }
 
     char command = inputCommand[0];
 
-    return command == MAIN_PAGE ||
-           command == VIEW_ALL_ITEMS ||
-           command == SEARCH_CHOOSE_FIELD ||
-           command == ADD_ITEM;
+    return command == Navigation::MAIN_PAGE ||
+           command == Navigation::VIEW_ALL_ITEMS ||
+           command == Navigation::SEARCH_CHOOSE_FIELD ||
+           command == Navigation::ADD_ITEM;
   }
 }

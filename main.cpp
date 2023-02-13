@@ -1,38 +1,34 @@
 #include <iostream>
 #include <cstring>
 
+using namespace std;
+
 // helpers, utils, etc...
 #include "src/navigation.h"
 #include "src/dividers.h"
 #include "src/defaultInputs.h"
 #include "src/validations.h"
 
-// Pages
-#include "src/pages/importDataFromCSV.h"
-#include "src/pages/exportDataFromCSV.h"
+// Pages headers
+#include "src/headers/startPage.h"
+#include "src/headers/importDataFromCSV.h"
+#include "src/headers/exportDataFromCSV.h"
 
-using namespace std;
-
-
-void renderMain()
-{
-  cout << "\t\tSistema de Cadastro em Arquivos com Ordenação\n";
-  cout << "\t\t\tdevelopers: andre, elian, gustavo\n";
-  cout << "\n* Para importar dados de um arquivo .csv, Insira '" << Navigation::IMPORT_DATA_FROM_CSV << "'";
-  cout << "\n* Para exportar dados para um arquivo .csv, Insira '" << Navigation::EXPORT_DATA_FROM_CSV << "'";
-}
+const char DEFAULT_PAGE = Navigation::MAIN_PAGE;
 
 int main()
 {
-  string input(1, Navigation::MAIN_PAGE); // Initialize variable with main page command
-  string previousCommand(1, Navigation::MAIN_PAGE);
+  string input(1, DEFAULT_PAGE); // Initialize variable with main page command
+  string previousCommand(1, DEFAULT_PAGE);
   showMainMenu();
-  renderMain();
+  StartPage::renderStartPage();
   inputCommand(input);
 
   while (!Navigation::shouldLeave(input)) {
     string command;
     string nextCommand = ""; // This is used when you need to pass a command to another function
+    
+    // Remove whitespaces from input
     for (char c : input)
     {
       if (c != ' ')
@@ -43,16 +39,13 @@ int main()
 
     if (isblank(command[0]))
     {
-      command[0] = Navigation::MAIN_PAGE;
+      command[0] = DEFAULT_PAGE;
     }
-
-    clearConsole();
 
     switch (command[0])
     {
     case Navigation::MAIN_PAGE:
-      showMainMenu();
-      renderMain();
+      StartPage::renderStartPage();
       break;
     case Navigation::IMPORT_DATA_FROM_CSV:
       if (previousCommand[0] != Navigation::MAIN_PAGE)
@@ -66,7 +59,7 @@ int main()
         ImportDataFromCSV::renderImportData();
       }
     default:
-      // Validation::showInvalidCommandError();
+      Validation::showInvalidCommandError();
       break;
     }
 
@@ -81,7 +74,7 @@ int main()
     }
   }
 
-  cout << "\n\n\t \(^-^)/ Obrigado por utilzar nosso sistema! \(^-^)/ \n\n";
+  cout << "\n\n\t \\(^-^)/ Obrigado por utilzar nosso sistema! \\(^-^)/ \n\n";
 
   return EXIT_SUCCESS;
 }
