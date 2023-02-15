@@ -3,7 +3,7 @@
 namespace Navigation
 {
   // Main actions (available on mostly all pages)
-  const char MAIN_PAGE = 'M';
+  const char MAIN = 'M';
   const char VIEW_ALL_ITEMS = 'P';
   const char SEARCH_CHOOSE_FIELD = 'p';
   const char ADD_ITEM = 'a';

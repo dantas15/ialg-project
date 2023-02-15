@@ -1,8 +1,8 @@
 #pragma once
 
-namespace StartPage
+namespace Intro
 {
-  void renderStartPage()
+  void renderIntro()
   {
     clearConsole();
     showMainMenu();

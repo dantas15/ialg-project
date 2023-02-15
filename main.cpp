@@ -10,24 +10,25 @@ using namespace std;
 #include "src/validations.h"
 
 // Pages headers
-#include "src/headers/startPage.h"
+#include "src/headers/intro.h"
 #include "src/headers/importDataFromCSV.h"
 #include "src/headers/exportDataFromCSV.h"
 
-const char DEFAULT_PAGE = Navigation::MAIN_PAGE;
+const char DEFAULT_COMMAND = Navigation::MAIN;
 
 int main()
 {
-  string input(1, DEFAULT_PAGE); // Initialize variable with main page command
-  string previousCommand(1, DEFAULT_PAGE);
+  string input(1, DEFAULT_COMMAND); // Initialize variable with main page command
+  string previousCommand(1, DEFAULT_COMMAND);
   showMainMenu();
-  StartPage::renderStartPage();
+  Intro::renderIntro();
   inputCommand(input);
 
-  while (!Navigation::shouldLeave(input)) {
+  while (!Navigation::shouldLeave(input))
+  {
     string command;
     string nextCommand = ""; // This is used when you need to pass a command to another function
-    
+
     // Remove whitespaces from input
     for (char c : input)
     {
@@ -37,27 +38,26 @@ int main()
       }
     }
 
+    // Set default page if command is empty
     if (isblank(command[0]))
     {
-      command[0] = DEFAULT_PAGE;
+      command[0] = DEFAULT_COMMAND;
     }
 
+    // - This switch is used to navigate between the main pages
+    // there will be more navigation inside them specifically;
+    // - Each of the main pages receive a reference to nextCommand
+    // so they can override the input command on this file;
     switch (command[0])
     {
-    case Navigation::MAIN_PAGE:
-      StartPage::renderStartPage();
+    case Navigation::MAIN:
+      Intro::renderIntro();
       break;
     case Navigation::IMPORT_DATA_FROM_CSV:
-      if (previousCommand[0] != Navigation::MAIN_PAGE)
-      {
-        ImportDataFromCSV::renderImportData();
-      }
+      ImportDataFromCSV::renderImportData();
       break;
     case Navigation::EXPORT_DATA_FROM_CSV:
-      if (previousCommand[0] != Navigation::MAIN_PAGE)
-      {
-        ImportDataFromCSV::renderImportData();
-      }
+      ImportDataFromCSV::renderImportData();
     default:
       Validation::showInvalidCommandError();
       break;
