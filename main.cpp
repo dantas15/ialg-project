@@ -14,6 +14,7 @@ using namespace std;
 #include "src/validations.h"
 #include "src/stringHelpers.h"
 #include "src/arrayHelpers.h"
+#include "src/binary.h"
 
 // Sort and search algorithms
 #include "src/algorithms/sort.h"
@@ -32,11 +33,6 @@ int main()
 {
   string global_input(1, DEFAULT_COMMAND); // Initialize variable with main page global_command
   string global_previousCommand(1, DEFAULT_COMMAND);
-
-  showMainMenu();
-
-  Intro::renderIntro();
-  inputCommand(global_input);
 
   while (!Navigation::shouldLeave(global_input))
   {
@@ -79,6 +75,7 @@ int main()
     }
     else
     {
+      showDivider();
       inputCommand(global_input);
     }
   }

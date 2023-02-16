@@ -7,32 +7,99 @@ namespace ImportDataFromCSV
   void renderImportData(string &overrideGlobalCommand)
   {
 
-    string csvFileName;
-    string inputLabel = "Digite o nome do arquivo (.csv) ou " + LEAVE_COMMAND + " para sair: ";
+    string csvFileNameOrCommand;
+    string inputLabel = "Digite o nome do arquivo (.csv) dentro da pasta `put_csv_here` ou digite " + LEAVE_COMMAND + " para voltar: ";
 
     showHeader("Importar dados de um arquivo .csv");
-    inputCommand(csvFileName, inputLabel);
+    inputCommand(csvFileNameOrCommand, inputLabel);
 
-    while (csvFileName != LEAVE_COMMAND)
+    while (csvFileNameOrCommand != LEAVE_COMMAND)
     {
       overrideGlobalCommand = Navigation::MAIN;
 
-      // Verify if csvFileName has the .csv extension, otherwise add it
-      if (csvFileName.substr(csvFileName.find_last_of(".") + 1) != "csv")
+      // Verify if csvFileNameOrCommand has the .csv extension, otherwise add it
+      if (csvFileNameOrCommand.substr(csvFileNameOrCommand.find_last_of(".") + 1) != "csv")
       {
-        csvFileName += ".csv";
+        csvFileNameOrCommand += ".csv";
       }
 
-      ifstream file(csvFileName);
+      string filePath = "put_csv_here/" + csvFileNameOrCommand;
+      cout << "\nCaminho procurado (partindo do root do projeto): " << filePath << endl;
+      ifstream file(filePath);
       if (!file.is_open())
       {
         Validation::showInvalidCommandError("Erro ao abrir o arquivo.");
         file.close();
       }
-      
-      
+      else
+      {
+        int medsSize = 0;
+        Medicine *medicines = new Medicine[0];
 
-      inputCommand(csvFileName, inputLabel);
+        string line, field;
+        int i = 0;
+        while (getline(file, line))
+        {
+          stringstream ss(line);
+          medicines = ArrayHelpers::increaseArraySize(medicines, medsSize);
+
+          getline(ss, field, ';');
+          medicines[i].id = stol(field);
+
+          getline(ss, field, ';');
+          StringHelpers::replaceCommasWithPoints(field);
+          medicines[i].value = stod(field);
+
+          getline(ss, field, ';');
+          strcpy(medicines[i].pricesAreTheSame, field.c_str());
+
+          getline(ss, field, ';');
+          strcpy(medicines[i].description, field.c_str());
+
+          getline(ss, field, ';');
+          StringHelpers::replaceCommasWithPoints(field);
+          medicines[i].marketPrice = stof(field);
+
+          // cout << endl << medicines[i].description;
+
+          // default value for `active` is true
+          medicines[i].active = true;
+
+          i++;
+        }
+
+        // Sort medicines by id
+        Sort::quicksortById(medicines, 0, medsSize-1);
+
+        // Save sorted medicines data to binary file
+        Binary::writeMedicines(medicines, medsSize);
+
+        // for (int i = 0; i < medsSize; i++)
+        // {
+        //   cout << medicines[i].marketPrice << " and "<< medicines[i].value << endl;
+        // }
+
+        // free char* and other dynamically allocated memory
+        // for (int d = 0; d < i; d++)
+        // {
+        //   delete[] medicines[d].pricesAreTheSame;
+        //   delete[] medicines[d].description;
+        // }
+        delete[] medicines;
+
+        Binary::displayMedicines();
+
+        inputCommand(csvFileNameOrCommand, "and the rain will kill us all");
+
+        // Go back to main menu once the file is imported
+        overrideGlobalCommand = Navigation::MAIN;
+        return;
+      }
+
+      inputCommand(csvFileNameOrCommand, inputLabel);
     };
+
+    // Go back to main menu if user typed -1
+    overrideGlobalCommand = Navigation::MAIN;
   };
 }

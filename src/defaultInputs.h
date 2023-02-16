@@ -4,7 +4,6 @@ namespace DefaultInputs
 {
   void inputCommand(string &input, string label = "Insira um comando: ")
   {
-    showDivider();
     cout << endl << label;
     getline(cin, input);
   }

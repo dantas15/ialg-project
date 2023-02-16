@@ -20,13 +20,13 @@ namespace Sort
   }
 
   // Default quicksort function (for medicine identification)
-  void quicksort(Medicine arr[], int low, int high)
+  void quicksortById(Medicine arr[], int low, int high)
   {
     if (low < high)
     {
       int pi = partition(arr, low, high);
-      quicksort(arr, low, pi - 1);
-      quicksort(arr, pi + 1, high);
+      quicksortById(arr, low, pi - 1);
+      quicksortById(arr, pi + 1, high);
     }
   }
 
