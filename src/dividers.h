@@ -19,7 +19,7 @@ void showHeader(string header)
 void showMainMenu()
 {
   showHeader("Páginas");
-  cout << Navigation::MAIN_PAGE << " = Página inicial";
+  cout << Navigation::MAIN << " = Página inicial";
   cout << "\t" << Navigation::VIEW_ALL_ITEMS << " = visualizar todos";
   cout << "\t" << Navigation::SEARCH_CHOOSE_FIELD << " = pesquisa";
 

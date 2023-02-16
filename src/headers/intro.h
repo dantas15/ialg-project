@@ -4,7 +4,6 @@ namespace Intro
 {
   void renderIntro()
   {
-    clearConsole();
     showMainMenu();
     cout << "\t\tSistema de Cadastro em Arquivos com Ordenação\n";
     cout << "\t\t\tdevelopers: andre, elian, gustavo\n";
