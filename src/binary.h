@@ -5,10 +5,11 @@ namespace Binary
   // Use it on import .csv only
   void writeMedicines(Medicine medicines[], int size)
   {
-    ofstream outfile("medicines.bin", ios::out | ios::binary);
+    ofstream outfile("medicines.bin", ios::binary | ios::out | ios::trunc);
     if (outfile.is_open())
     {
-      outfile.write(reinterpret_cast<const char *>(&medicines), sizeof(Medicine) * size);
+      outfile.seekp(0, ios::beg);
+      outfile.write(reinterpret_cast<char *>(medicines), sizeof(Medicine) * size);
       outfile.close();
     }
     else
@@ -37,6 +38,8 @@ namespace Binary
       int numberOfMedicines;
       size_t fileSize = getMedicineFileSize(binfile, numberOfMedicines);
       Medicine medicinesRead[numberOfMedicines];
+
+      binfile.seekg(0, ios::beg);
 
       binfile.read(reinterpret_cast<char *>(&medicinesRead), fileSize);
       binfile.close();
