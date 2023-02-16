@@ -2,6 +2,7 @@
 #include <cstring>
 #include <fstream>
 #include <string>
+#include <sstream>
 
 using namespace std;
 
@@ -12,6 +13,11 @@ using namespace std;
 #include "src/defaultInputs.h"
 #include "src/validations.h"
 #include "src/stringHelpers.h"
+#include "src/arrayHelpers.h"
+
+// Sort and search algorithms
+#include "src/algorithms/sort.h"
+#include "src/algorithms/search.h"
 
 using namespace DefaultInputs;
 
