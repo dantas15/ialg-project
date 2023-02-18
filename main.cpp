@@ -10,10 +10,10 @@ using namespace std;
 #include "src/structs.h"
 #include "src/navigation.h"
 #include "src/dividers.h"
-#include "src/defaultInputs.h"
 #include "src/validations.h"
 #include "src/stringHelpers.h"
 #include "src/arrayHelpers.h"
+#include "src/defaultInputs.h"
 #include "src/binary.h"
 
 // Sort and search algorithms

@@ -2,7 +2,6 @@ namespace Binary
 {
   const string BINARY_FILENAME = "medicines.bin";
 
-  // Use it on import .csv only
   void writeMedicines(Medicine medicines[], int size)
   {
     ofstream outfile(BINARY_FILENAME, ios::binary | ios::out | ios::trunc);
@@ -66,7 +65,7 @@ namespace Binary
       getMedicineFileSize(binfile, numberOfMedicines);
       Medicine *medicinesRead = new Medicine[numberOfMedicines];
 
-      for (int i = 0 ; i < numberOfMedicines; i++)
+      for (int i = 0; i < numberOfMedicines; i++)
       {
         binfile.seekg(i * sizeof(Medicine), ios::beg);
         binfile.read(reinterpret_cast<char *>(&*(medicinesRead + i)), sizeof(Medicine));
@@ -85,4 +84,10 @@ namespace Binary
       return invalidMedicinePtr;
     }
   };
+
+  bool completelyRemoveMedicineFromFile(fstream &fileMedicine, Medicine *med)
+  {
+    // TODO implement
+    return true;
+  }
 }

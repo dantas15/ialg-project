@@ -4,8 +4,10 @@ namespace DefaultInputs
 {
   void inputCommand(string &input, string label = "Insira um comando: ")
   {
-    cout << endl << label;
-    getline(cin, input);
+    cout << endl
+         << label << " ";
+    cin >> input;
+    input = StringHelpers::removeWhiteSpacesFromString(input);
   }
 
   void inputString(string &input)

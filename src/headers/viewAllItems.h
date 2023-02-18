@@ -12,9 +12,25 @@ namespace ViewAllItems
 
   const int PAGE_SIZE = 10;
 
-  void displayDataAsTable(Medicine *meds, int loopSize)
+  const char SPECIFIC_PAGE_PREFIX = 'p';
+  const char NEXT_PAGE = 'k';
+  const char PREVIOUS_PAGE = 'j';
+
+  void showNavigationMenu()
   {
-    cout << "Índice\tId\t\tDescrição\t\tPrecos iguais\tValor\tPreço de mercado" << endl;
+    cout << "\nDigite " << NEXT_PAGE << " para ir para a próxima página";
+    cout << "\nDigite " << PREVIOUS_PAGE << " para ir para a página anterior";
+    cout << "\nDigite " << SPECIFIC_PAGE_PREFIX << " + número da página para ir para uma página específica (Ex.: " << SPECIFIC_PAGE_PREFIX << "3 para a página 3)";
+    cout << "\nDigite " << Navigation::DELETE_ITEM << " + índice para deletar o remédio especificado (Ex.: " << Navigation::DELETE_ITEM << "10 para o índice 10 )";
+    cout << "\nDigite " << Navigation::EDIT_ITEM << " + índice para editar o remédio especificado (Ex.: " << Navigation::DELETE_ITEM << "8 para o índice 8 )";
+    cout << "\nDigite " << GO_BACK << " + índice para voltar para a página inicial";
+
+    showDivider();
+  }
+
+  void displayDataAsTable(Medicine *meds, int loopSize, int currentPage = -1, int totalPages = -1)
+  {
+    cout << "Índice\tId\t\tDescrição\tPrecos iguais\tValor\tPreço de mercado" << endl;
     cout << "----------------------------------------------------------------------------------------" << endl;
     for (int i = 0; i < loopSize; i++)
     {
@@ -25,10 +41,14 @@ namespace ViewAllItems
         desc[10] = '\0';
         strcat(desc, "..."); // add ellipsis if length is greater than 10
       }
-      cout << i + 1 << "\t" << meds[i].id << "\t" << desc << "\t\t" << meds[i].pricesAreTheSame << "\t" << meds[i].value << "\t" << meds[i].marketPrice << endl;
+      cout << i << "\t" << meds[i].id << "\t" << desc << "\t" << meds[i].pricesAreTheSame << "\t" << meds[i].value << "\t" << meds[i].marketPrice << endl;
     }
     cout << "----------------------------------------------------------------------------------------" << endl;
-    cout << "Índice\tId\t\tDescrição\t\tPrecos iguais\tValor\tPreço de mercado" << endl;
+    cout << "Índice\tId\t\tDescrição\tPrecos iguais\tValor\tPreço de mercado" << endl;
+    if (currentPage != -1 && totalPages != -1)
+    {
+      cout << "Página " << currentPage << " de " << totalPages << endl;
+    }
   }
 
   void showByPage(int &sortType)
@@ -65,11 +85,12 @@ namespace ViewAllItems
     int showType = 0;
     while (showType != ID && showType != DESCRIPTION && showType != GO_BACK)
     {
-      cout << endl;
-      cout << "\t" << SHOW_BY_PAGE << " - Mostrar em páginas\n";
-      cout << "\t" << SHOW_ALL << " - Mostrar tudo de uma vez\n";
-      cout << "\nEscolha como deseja mostrar os medicamentos: ";
-      cin >> showType;
+      // cout << endl;
+      // cout << "\t" << SHOW_BY_PAGE << " - Mostrar em páginas\n";
+      // cout << "\t" << SHOW_ALL << " - Mostrar tudo de uma vez\n";
+      // cout << "\nEscolha como deseja mostrar os medicamentos: ";
+      // cin >> showType;
+      showType = SHOW_ALL; // show paginated is not implemented yet :/
     }
 
     int medsQuantity = 0;
@@ -110,6 +131,9 @@ namespace ViewAllItems
         delete[] meds;
         break;
       }
+      pressAnythingToContinue();
+      overrideGlobalCommand = Navigation::MAIN;
+      return;
     }
   }
 }
