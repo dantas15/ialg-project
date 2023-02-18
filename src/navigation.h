@@ -7,12 +7,8 @@ namespace Navigation
   const char VIEW_ALL_ITEMS = 'P';
   const char SEARCH_CHOOSE_FIELD = 'p';
   const char ADD_ITEM = 'a';
-  const char SAVE = 's';
-  const char LEAVE = 'L';
-
-  // Always used when SAVE or LEAVE is pressed previously
-  const char SAVE_AND_LEAVE = 'L';
-  const char LEAVE_WITHOUT_SAVING = 'F';
+  const char SAVE_AND_LEAVE [] = "sL";
+  const char LEAVE_WITHOUT_SAVING [] = "LF";
 
   // Main page options
   const char IMPORT_DATA_FROM_CSV = 'I';
@@ -34,8 +30,8 @@ namespace Navigation
 
   bool shouldLeave(string command = "")
   {
-    bool leaveWithoutSaving = command[0] == Navigation::LEAVE && command[1] == Navigation::LEAVE_WITHOUT_SAVING;
-    bool saveAndLeave = command[0] == Navigation::SAVE && command[1] == Navigation::SAVE_AND_LEAVE;
+    bool leaveWithoutSaving = command == string(LEAVE_WITHOUT_SAVING);
+    bool saveAndLeave = command == string(SAVE_AND_LEAVE);
     return leaveWithoutSaving || saveAndLeave;
   }
 }

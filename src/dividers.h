@@ -24,9 +24,8 @@ void showMainMenu()
   cout << "\t" << Navigation::SEARCH_CHOOSE_FIELD << " = pesquisa";
 
   showHeader("Comandos");
-  cout << Navigation::SAVE << " = salvar";
-  cout << "\t" << Navigation::SAVE << Navigation::SAVE_AND_LEAVE << " = salvar e sair";
-  cout << "\t" << Navigation::LEAVE << Navigation::LEAVE_WITHOUT_SAVING << " = sair sem salvar";
+  cout << "\t" << Navigation::SAVE_AND_LEAVE << " = salvar e sair";
+  cout << "\t" << Navigation::LEAVE_WITHOUT_SAVING << " = sair sem salvar";
 
   showDivider();
 }
