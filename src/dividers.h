@@ -29,3 +29,9 @@ void showMainMenu()
 
   showDivider();
 }
+
+void pressAnythingToContinue()
+{
+  cout << "Pressione qualquer tecla para continuar\n";
+  cin.ignore();
+}
