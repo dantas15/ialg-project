@@ -11,7 +11,7 @@ struct Medicine
 {
   long id;
   double value;
-  char pricesAreTheSame[8]; // "Positivo" or "Negativo"
+  char pricesAreTheSame[9]; // "Positivo" or "Negativo"
   char description[255];
   float marketPrice;
   bool active;
