@@ -1,13 +1,26 @@
 #include <iostream>
 #include <cstring>
+#include <fstream>
+#include <string>
+#include <sstream>
 
 using namespace std;
 
 // helpers, utils, etc...
+#include "src/structs.h"
 #include "src/navigation.h"
 #include "src/dividers.h"
 #include "src/defaultInputs.h"
 #include "src/validations.h"
+#include "src/stringHelpers.h"
+#include "src/arrayHelpers.h"
+#include "src/binary.h"
+
+// Sort and search algorithms
+#include "src/algorithms/sort.h"
+#include "src/algorithms/search.h"
+
+using namespace DefaultInputs;
 
 // Pages headers
 #include "src/headers/intro.h"
@@ -18,59 +31,55 @@ const char DEFAULT_COMMAND = Navigation::MAIN;
 
 int main()
 {
-  string input(1, DEFAULT_COMMAND); // Initialize variable with main page command
-  string previousCommand(1, DEFAULT_COMMAND);
-  showMainMenu();
-  Intro::renderIntro();
-  inputCommand(input);
+  string global_input(1, DEFAULT_COMMAND); // Initialize variable with main page global_command
+  string global_previousCommand(1, DEFAULT_COMMAND);
 
-  while (!Navigation::shouldLeave(input))
+  while (!Navigation::shouldLeave(global_input))
   {
-    string command;
-    string nextCommand = ""; // This is used when you need to pass a command to another function
+    string global_command;
+    string global_nextCommand = ""; // This is used when you need to override the input command inside another function
 
-    // Remove whitespaces from input
-    for (char c : input)
-    {
-      if (c != ' ')
-      {
-        command += c;
-      }
-    }
+    global_command = StringHelpers::removeWhiteSpacesFromString(global_input);
 
-    // Set default page if command is empty
-    if (isblank(command[0]))
+    // Set default page if global_command is empty
+    if (isblank(global_command[0]))
     {
-      command[0] = DEFAULT_COMMAND;
+      global_command[0] = DEFAULT_COMMAND;
     }
 
     // - This switch is used to navigate between the main pages
     // there will be more navigation inside them specifically;
     // - Each of the main pages receive a reference to nextCommand
-    // so they can override the input command on this file;
-    switch (command[0])
+    // so they can override the input global_command on this file;
+    switch (global_command[0])
     {
     case Navigation::MAIN:
+      clearConsole();
       Intro::renderIntro();
       break;
     case Navigation::IMPORT_DATA_FROM_CSV:
-      ImportDataFromCSV::renderImportData();
+      clearConsole();
+      ImportDataFromCSV::renderImportData(global_nextCommand);
       break;
     case Navigation::EXPORT_DATA_FROM_CSV:
-      ImportDataFromCSV::renderImportData();
+      clearConsole();
+      ExportDataFromCSV::renderExportData(global_nextCommand);
+      break;
     default:
       Validation::showInvalidCommandError();
       break;
     }
 
-    previousCommand = command;
-    if (nextCommand != "")
+    global_previousCommand = global_command;
+    if (global_nextCommand != "")
     {
-      input = nextCommand;
+      cin.ignore();
+      global_input = global_nextCommand;
     }
     else
     {
-      inputCommand(input);
+      showDivider();
+      inputCommand(global_input);
     }
   }
 
