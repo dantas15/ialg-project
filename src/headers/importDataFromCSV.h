@@ -60,8 +60,6 @@ namespace ImportDataFromCSV
           StringHelpers::replaceCommasWithPoints(field);
           medicines[i].marketPrice = stof(field);
 
-          // cout << endl << medicines[i].description;
-
           // default value for `active` is true
           medicines[i].active = true;
 
@@ -73,23 +71,9 @@ namespace ImportDataFromCSV
 
         // Save sorted medicines data to binary file
         Binary::writeMedicines(medicines, medsSize);
-
-        // for (int i = 0; i < medsSize; i++)
-        // {
-        //   cout << medicines[i].marketPrice << " and "<< medicines[i].value << endl;
-        // }
-
-        // free char* and other dynamically allocated memory
-        // for (int d = 0; d < i; d++)
-        // {
-        //   delete[] medicines[d].pricesAreTheSame;
-        //   delete[] medicines[d].description;
-        // }
         delete[] medicines;
 
         Binary::displayMedicines();
-
-        inputCommand(csvFileNameOrCommand, "and the rain will kill us all");
 
         // Go back to main menu once the file is imported
         overrideGlobalCommand = Navigation::MAIN;
