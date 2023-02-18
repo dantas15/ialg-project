@@ -20,7 +20,7 @@ namespace ArrayHelpers
 
   // insert item on array (and automatically increase array size by 1)
   template <typename T>
-  T *increaseAndInsertItem(T *array, int& size, T item)
+  T *increaseAndInsertItem(T *array, int &size, T item)
   {
     T *newArray = increaseArraySize(array, size);
 
@@ -55,4 +55,20 @@ namespace ArrayHelpers
     return indexOf(array, size, item) != -1;
   }
 
+  Medicine *removeInactiveMeds(Medicine *meds, int &medsQuantity)
+  {
+    int newQuantity = 0;
+    Medicine *newMeds = new Medicine[newQuantity];
+    for (int i = 0; i < medsQuantity; i++)
+    {
+      if (meds[i].active)
+      {
+        newMeds = increaseArraySize(newMeds, newQuantity);
+        newMeds[newQuantity - 1] = meds[i];
+      }
+    }
+    medsQuantity = newQuantity;
+    delete[] meds;
+    return newMeds;
+  }
 }
