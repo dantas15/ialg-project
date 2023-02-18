@@ -73,10 +73,9 @@ namespace ImportDataFromCSV
         Binary::writeMedicines(medicines, medsSize);
         delete[] medicines;
 
-        Binary::displayMedicines();
-
         // Go back to main menu once the file is imported
         overrideGlobalCommand = Navigation::MAIN;
+        pressAnythingToContinue();
         return;
       }
 

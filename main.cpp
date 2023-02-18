@@ -73,6 +73,7 @@ int main()
     global_previousCommand = global_command;
     if (global_nextCommand != "")
     {
+      cin.ignore();
       global_input = global_nextCommand;
     }
     else

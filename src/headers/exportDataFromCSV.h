@@ -50,12 +50,10 @@ namespace ExportDataFromCSV
         delete[] medicines;
 
         cout << "\nDados exportados com sucesso em " << csvFileNameOrCommand << "!\n";
-        cout << "Pressione qualquer tecla para continuar no menu principal\n";
-        cin.ignore();
+        pressAnythingToContinue();
       }
       csvFileNameOrCommand = Navigation::LEAVE_WITHOUT_SAVING;
       overrideGlobalCommand = Navigation::MAIN;
-      return;
     };
   };
 }

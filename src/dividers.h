@@ -33,5 +33,5 @@ void showMainMenu()
 void pressAnythingToContinue()
 {
   cout << "Pressione qualquer tecla para continuar\n";
-  cin.ignore();
+  getchar();
 }
