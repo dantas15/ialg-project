@@ -5,7 +5,7 @@ namespace Binary
   // Use it on import .csv only
   void writeMedicines(Medicine medicines[], int size)
   {
-    ofstream outfile("medicines.bin", ios::binary | ios::out | ios::trunc);
+    ofstream outfile(BINARY_FILENAME, ios::binary | ios::out | ios::trunc);
     if (outfile.is_open())
     {
       outfile.seekp(0, ios::beg);
@@ -31,7 +31,7 @@ namespace Binary
 
   void displayMedicines()
   {
-    ifstream binfile("medicines.bin", ios::in | ios::binary);
+    ifstream binfile(BINARY_FILENAME, ios::in | ios::binary);
     if (binfile.is_open())
     {
       // getting the filesize
