@@ -26,6 +26,7 @@ using namespace DefaultInputs;
 #include "src/headers/intro.h"
 #include "src/headers/importDataFromCSV.h"
 #include "src/headers/exportDataFromCSV.h"
+#include "src/headers/viewAllItems.h"
 
 const char DEFAULT_COMMAND = Navigation::MAIN;
 
@@ -64,6 +65,10 @@ int main()
     case Navigation::EXPORT_DATA_FROM_CSV:
       clearConsole();
       ExportDataFromCSV::renderExportData(global_nextCommand);
+      break;
+    case Navigation::VIEW_ALL_ITEMS:
+      clearConsole();
+      ViewAllItems::renderViewAllItems(global_nextCommand);
       break;
     default:
       Validation::showInvalidCommandError();
