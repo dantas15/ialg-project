@@ -33,20 +33,45 @@ namespace ViewAllItems
 
   void showByPage(int &sortType)
   {
-    switch (sortType)
-    {
-    case ID:
-      //
-      break;
-    case DESCRIPTION:
-      //
-      break;
-    default:
-      break;
-    }
   }
-  void showAll(int &sortType)
+  void showAll(Medicine *meds, int &medsQuantity)
   {
+    // Display the sorted data
+    displayDataAsTable(meds, medsQuantity);
+
+    delete[] meds;
+  }
+
+  void renderViewAllItems(string &overrideGlobalCommand)
+  {
+    showMainMenu();
+    showHeader("Visualizar os medicamentos cadastrados");
+
+    int sortType = 0;
+    while (sortType != ID && sortType != DESCRIPTION)
+    {
+      cout << endl;
+      cout << "\t" << ID << " - Ordenar por ID\n";
+      cout << "\t" << DESCRIPTION << " - Ordenar por Descrição\n";
+      cout << "\nEscolha como deseja ordenar os medicamentos ou digite " << GO_BACK << " para voltar ao menu principal: ";
+      cin >> sortType;
+    }
+    if (sortType == GO_BACK)
+    {
+      overrideGlobalCommand = Navigation::MAIN;
+      return;
+    }
+
+    int showType = 0;
+    while (showType != ID && showType != DESCRIPTION && showType != GO_BACK)
+    {
+      cout << endl;
+      cout << "\t" << SHOW_BY_PAGE << " - Mostrar em páginas\n";
+      cout << "\t" << SHOW_ALL << " - Mostrar tudo de uma vez\n";
+      cout << "\nEscolha como deseja mostrar os medicamentos: ";
+      cin >> showType;
+    }
+
     int medsQuantity = 0;
     Medicine *meds = Binary::getAllMedicines(medsQuantity);
 
@@ -58,7 +83,6 @@ namespace ViewAllItems
     {
       // Remove the inactive ones
       meds = ArrayHelpers::removeInactiveMeds(meds, medsQuantity);
-
       switch (sortType)
       {
       case ID:
@@ -72,53 +96,20 @@ namespace ViewAllItems
       default:
         break;
       }
-      // Display the sorted data
-      displayDataAsTable(meds, medsQuantity);
-    }
 
-    delete[] meds;
-  }
-
-  void renderViewAllItems(string &overrideGlobalCommand)
-  {
-    showMainMenu();
-    showHeader("Visualizar os medicamentos cadastrados");
-
-    int showType = 0;
-    while (showType != ID && showType != DESCRIPTION && showType != GO_BACK)
-    {
-      cout << endl;
-      cout << "\t" << SHOW_BY_PAGE << " - Mostrar em páginas\n";
-      cout << "\t" << SHOW_ALL << " - Mostrar tudo de uma vez\n";
-      cout << "\nEscolha como deseja mostrar os medicamentos ou digite " << GO_BACK << " para voltar ao menu principal: ";
-      cin >> showType;
-    }
-    if (showType == GO_BACK)
-    {
-      overrideGlobalCommand = Navigation::MAIN;
-      return;
-    }
-
-    int sortType = 0;
-    while (sortType != ID && sortType != DESCRIPTION)
-    {
-      cout << endl;
-      cout << "\t" << ID << " - Ordenar por ID\n";
-      cout << "\t" << DESCRIPTION << " - Ordenar por Descrição\n";
-      cout << "\nEscolha como deseja ordenar os medicamentos: ";
-      cin >> sortType;
-    }
-
-    switch (showType)
-    {
-    case SHOW_BY_PAGE:
-      showByPage(sortType);
-      break;
-    case SHOW_ALL:
-      showAll(sortType);
-      break;
-    default:
-      break;
+      switch (showType)
+      {
+      case SHOW_BY_PAGE:
+        delete[] meds;
+        showByPage(sortType);
+        break;
+      case SHOW_ALL:
+        showAll(meds, medsQuantity);
+        break;
+      default:
+        delete[] meds;
+        break;
+      }
     }
   }
 }
