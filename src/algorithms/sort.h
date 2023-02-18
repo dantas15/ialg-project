@@ -54,9 +54,9 @@ namespace Sort
   {
     if (low < high)
     {
-      int pi = partitionByDescription(arr, low, high);
-      quicksortByDescription(arr, low, pi - 1);
-      quicksortByDescription(arr, pi + 1, high);
+      int pivot = partitionByDescription(arr, low, high);
+      quicksortByDescription(arr, low, pivot - 1);
+      quicksortByDescription(arr, pivot + 1, high);
     }
   }
 }
