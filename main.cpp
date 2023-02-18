@@ -37,7 +37,7 @@ int main()
   while (!Navigation::shouldLeave(global_input))
   {
     string global_command;
-    string global_nextCommand = ""; // This is used when you need to pass a global_command to another function]
+    string global_nextCommand = ""; // This is used when you need to override the input command inside another function
 
     global_command = StringHelpers::removeWhiteSpacesFromString(global_input);
 
@@ -62,7 +62,9 @@ int main()
       ImportDataFromCSV::renderImportData(global_nextCommand);
       break;
     case Navigation::EXPORT_DATA_FROM_CSV:
-      ExportDataFromCSV::renderExportData();
+      clearConsole();
+      ExportDataFromCSV::renderExportData(global_nextCommand);
+      break;
     default:
       Validation::showInvalidCommandError();
       break;
