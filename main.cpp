@@ -27,6 +27,7 @@ using namespace DefaultInputs;
 #include "src/headers/importDataFromCSV.h"
 #include "src/headers/exportDataFromCSV.h"
 #include "src/headers/viewAllItems.h"
+#include "src/headers/create.h"
 
 const char DEFAULT_COMMAND = Navigation::MAIN;
 
@@ -70,6 +71,9 @@ int main()
       clearConsole();
       ViewAllItems::renderViewAllItems(global_nextCommand);
       break;
+    case Navigation::ADD_ITEM:
+      clearConsole();
+      Create::renderCreate(global_nextCommand);
     default:
       Validation::showInvalidCommandError();
       break;
@@ -78,7 +82,6 @@ int main()
     global_previousCommand = global_command;
     if (global_nextCommand != "")
     {
-      cin.ignore();
       global_input = global_nextCommand;
     }
     else

@@ -9,24 +9,4 @@ namespace DefaultInputs
     cin >> input;
     input = StringHelpers::removeWhiteSpacesFromString(input);
   }
-
-  void inputString(string &input)
-  {
-    getline(cin, input);
-  }
-
-  void inputInt(int &input)
-  {
-    cin >> input;
-  }
-
-  void inputFloat(float &input)
-  {
-    cin >> input;
-  }
-
-  void inputDouble(double &input)
-  {
-    cin >> input;
-  }
 }

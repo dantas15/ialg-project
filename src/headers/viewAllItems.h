@@ -25,7 +25,7 @@ namespace ViewAllItems
     // cout << "\nDigite " << SPECIFIC_PAGE_PREFIX << " + número da página para ir para uma página específica (Ex.: " << SPECIFIC_PAGE_PREFIX << "3 para a página 3)";
     cout << "\nDigite " << Navigation::DELETE_ITEM << " + índice para deletar o remédio especificado (Ex.: " << Navigation::DELETE_ITEM << "10 para o índice 10 )";
     cout << "\nDigite " << Navigation::EDIT_ITEM << " + índice para editar o remédio especificado (Ex.: " << Navigation::DELETE_ITEM << "8 para o índice 8 )";
-    cout << "\nDigite " << GO_BACK << " + índice para voltar para a página inicial";
+    cout << "\nDigite " << GO_BACK << " para voltar para a página inicial";
 
     showDivider();
   }

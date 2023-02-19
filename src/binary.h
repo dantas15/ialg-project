@@ -127,9 +127,22 @@ namespace Binary
     }
   }
 
-  bool completelyRemoveMedicineFromFile(fstream &fileMedicine, Medicine *med)
+  // returns true if successful
+  bool insertNewMed(Medicine med)
   {
-    // TODO implement
-    return true;
+    ofstream binfile(BINARY_FILENAME, ios::binary | ios::app | ios::ate);
+
+    if (binfile.is_open())
+    {
+      binfile.write(reinterpret_cast<char *>(&med), sizeof(Medicine));
+      binfile.close();
+      return true;
+    }
+    else
+    {
+      cerr << "Erro: Não foi possível abrir o arquivo binário para leitura." << endl;
+      binfile.close();
+      return false;
+    }
   }
 }

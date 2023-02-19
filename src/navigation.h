@@ -7,7 +7,7 @@ namespace Navigation
   const char VIEW_ALL_ITEMS = 'P';
   const char SEARCH_CHOOSE_FIELD = 'p';
   const char ADD_ITEM = 'a';
-  const char SAVE_AND_LEAVE[] = "sL";
+  // const char SAVE_AND_LEAVE[] = "sL";
   const char LEAVE_WITHOUT_SAVING[] = "LF";
 
   // Main page options
@@ -26,7 +26,7 @@ namespace Navigation
   bool shouldLeave(string command = "")
   {
     bool leaveWithoutSaving = command == string(LEAVE_WITHOUT_SAVING);
-    bool saveAndLeave = command == string(SAVE_AND_LEAVE);
-    return leaveWithoutSaving || saveAndLeave;
+    // bool saveAndLeave = command == string(SAVE_AND_LEAVE);
+    return leaveWithoutSaving;
   }
 }
