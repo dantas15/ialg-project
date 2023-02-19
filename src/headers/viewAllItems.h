@@ -84,8 +84,10 @@ namespace ViewAllItems
       }
       else if (command[0] == Navigation::EDIT_ITEM)
       {
-        cout << "\nEdit (not implemented)";
-      } else {
+        bool success = Binary::editMedicineFromIndex(stoi(command.substr(1)));
+      }
+      else
+      {
         Validation::showInvalidCommandError();
       }
 
