@@ -23,8 +23,8 @@ namespace ViewAllItems
     // cout << "\nDigite " << NEXT_PAGE << " para ir para a próxima página";
     // cout << "\nDigite " << PREVIOUS_PAGE << " para ir para a página anterior";
     // cout << "\nDigite " << SPECIFIC_PAGE_PREFIX << " + número da página para ir para uma página específica (Ex.: " << SPECIFIC_PAGE_PREFIX << "3 para a página 3)";
-    cout << "\nDigite " << Navigation::DELETE_ITEM << " + índice para deletar o remédio especificado (Ex.: " << Navigation::DELETE_ITEM << "10 para o índice 10 )";
-    cout << "\nDigite " << Navigation::EDIT_ITEM << " + índice para editar o remédio especificado (Ex.: " << Navigation::DELETE_ITEM << "8 para o índice 8 )";
+    cout << "\nDigite " << Navigation::DELETE_ITEM << " + índice para deletar o medicamento especificado (Ex.: " << Navigation::DELETE_ITEM << "10 para o índice 10 )";
+    cout << "\nDigite " << Navigation::EDIT_ITEM << " + índice para editar o medicamento especificado (Ex.: " << Navigation::DELETE_ITEM << "8 para o índice 8 )";
     cout << "\nDigite " << GO_BACK << " para voltar para a página inicial";
 
     showDivider();
@@ -85,6 +85,8 @@ namespace ViewAllItems
       else if (command[0] == Navigation::EDIT_ITEM)
       {
         bool success = Binary::editMedicineFromIndex(stoi(command.substr(1)));
+        if (!success)
+          Validation::showInvalidCommandError("Erro ao editar, tente novamente!");
       }
       else
       {

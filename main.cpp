@@ -28,6 +28,7 @@ using namespace DefaultInputs;
 #include "src/screens/exportDataFromCSV.h"
 #include "src/screens/viewAllItems.h"
 #include "src/screens/create.h"
+#include "src/screens/search.h"
 
 const char DEFAULT_COMMAND = Navigation::MAIN;
 
@@ -74,6 +75,9 @@ int main()
     case Navigation::ADD_ITEM:
       clearConsole();
       Create::renderCreate(global_nextCommand);
+    case Navigation::SEARCH_CHOOSE_FIELD:
+      clearConsole();
+      SearchScreen::renderSearch(global_nextCommand);
     default:
       Validation::showInvalidCommandError();
       break;
