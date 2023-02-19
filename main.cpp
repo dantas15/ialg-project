@@ -10,10 +10,10 @@ using namespace std;
 #include "src/structs.h"
 #include "src/navigation.h"
 #include "src/dividers.h"
-#include "src/defaultInputs.h"
 #include "src/validations.h"
 #include "src/stringHelpers.h"
 #include "src/arrayHelpers.h"
+#include "src/defaultInputs.h"
 #include "src/binary.h"
 
 // Sort and search algorithms
@@ -22,10 +22,13 @@ using namespace std;
 
 using namespace DefaultInputs;
 
-// Pages headers
-#include "src/headers/intro.h"
-#include "src/headers/importDataFromCSV.h"
-#include "src/headers/exportDataFromCSV.h"
+// Pages screens
+#include "src/screens/intro.h"
+#include "src/screens/importDataFromCSV.h"
+#include "src/screens/exportDataFromCSV.h"
+#include "src/screens/viewAllItems.h"
+#include "src/screens/create.h"
+#include "src/screens/search.h"
 
 const char DEFAULT_COMMAND = Navigation::MAIN;
 
@@ -65,6 +68,16 @@ int main()
       clearConsole();
       ExportDataFromCSV::renderExportData(global_nextCommand);
       break;
+    case Navigation::VIEW_ALL_ITEMS:
+      clearConsole();
+      ViewAllItems::renderViewAllItems(global_nextCommand);
+      break;
+    case Navigation::ADD_ITEM:
+      clearConsole();
+      Create::renderCreate(global_nextCommand);
+    case Navigation::SEARCH_CHOOSE_FIELD:
+      clearConsole();
+      SearchScreen::renderSearch(global_nextCommand);
     default:
       Validation::showInvalidCommandError();
       break;
@@ -73,7 +86,6 @@ int main()
     global_previousCommand = global_command;
     if (global_nextCommand != "")
     {
-      cin.ignore();
       global_input = global_nextCommand;
     }
     else
