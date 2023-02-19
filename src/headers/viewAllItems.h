@@ -18,9 +18,11 @@ namespace ViewAllItems
 
   void showNavigationMenu()
   {
-    cout << "\nDigite " << NEXT_PAGE << " para ir para a próxima página";
-    cout << "\nDigite " << PREVIOUS_PAGE << " para ir para a página anterior";
-    cout << "\nDigite " << SPECIFIC_PAGE_PREFIX << " + número da página para ir para uma página específica (Ex.: " << SPECIFIC_PAGE_PREFIX << "3 para a página 3)";
+    showDivider();
+
+    // cout << "\nDigite " << NEXT_PAGE << " para ir para a próxima página";
+    // cout << "\nDigite " << PREVIOUS_PAGE << " para ir para a página anterior";
+    // cout << "\nDigite " << SPECIFIC_PAGE_PREFIX << " + número da página para ir para uma página específica (Ex.: " << SPECIFIC_PAGE_PREFIX << "3 para a página 3)";
     cout << "\nDigite " << Navigation::DELETE_ITEM << " + índice para deletar o remédio especificado (Ex.: " << Navigation::DELETE_ITEM << "10 para o índice 10 )";
     cout << "\nDigite " << Navigation::EDIT_ITEM << " + índice para editar o remédio especificado (Ex.: " << Navigation::DELETE_ITEM << "8 para o índice 8 )";
     cout << "\nDigite " << GO_BACK << " + índice para voltar para a página inicial";
@@ -41,7 +43,15 @@ namespace ViewAllItems
         desc[10] = '\0';
         strcat(desc, "..."); // add ellipsis if length is greater than 10
       }
-      cout << i << "\t" << meds[i].id << "\t" << desc << "\t" << meds[i].pricesAreTheSame << "\t" << meds[i].value << "\t" << meds[i].marketPrice << endl;
+      if (meds[i].active)
+      {
+        cout << i;
+      }
+      else
+      {
+        cout << "(Inativo)";
+      }
+      cout << "\t" << meds[i].id << "\t" << desc << "\t" << meds[i].pricesAreTheSame << "\t" << meds[i].value << "\t" << meds[i].marketPrice << endl;
     }
     cout << "----------------------------------------------------------------------------------------" << endl;
     cout << "Índice\tId\t\tDescrição\tPrecos iguais\tValor\tPreço de mercado" << endl;
@@ -58,8 +68,31 @@ namespace ViewAllItems
   {
     // Display the sorted data
     displayDataAsTable(meds, medsQuantity);
-
     delete[] meds;
+
+    string command;
+
+    showNavigationMenu();
+    cout << "Insira um comando: ";
+    cin >> command;
+
+    while (command != "-1")
+    {
+      if (command[0] == Navigation::DELETE_ITEM)
+      {
+        Binary::removeMedicineFromIndex(stoi(command.substr(1)));
+      }
+      else if (command[0] == Navigation::EDIT_ITEM)
+      {
+        cout << "\nEdit (not implemented)";
+      } else {
+        Validation::showInvalidCommandError();
+      }
+
+      showNavigationMenu();
+      cout << "Insira um comando: ";
+      cin >> command;
+    }
   }
 
   void renderViewAllItems(string &overrideGlobalCommand)
@@ -131,7 +164,6 @@ namespace ViewAllItems
         delete[] meds;
         break;
       }
-      pressAnythingToContinue();
       overrideGlobalCommand = Navigation::MAIN;
       return;
     }

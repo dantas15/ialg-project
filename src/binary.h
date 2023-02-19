@@ -85,6 +85,48 @@ namespace Binary
     }
   };
 
+  void removeMedicineFromIndex(int index)
+  {
+    fstream binfile(BINARY_FILENAME, ios::in | ios::out | ios::binary);
+    if (binfile.is_open())
+    {
+      binfile.seekg(0, ios::end);
+      size_t fileSize = binfile.tellg();
+      size_t elementSize = sizeof(Medicine);
+      int quantity = fileSize / elementSize;
+
+      Medicine med;
+
+      if (index > -1 && index < quantity)
+      {
+        binfile.seekp(index * sizeof(Medicine));
+        binfile.read(reinterpret_cast<char *>(&med), sizeof(Medicine));
+        if (med.active)
+        {
+          med.active = false;
+          binfile.seekp(index * sizeof(Medicine));
+          binfile.write(reinterpret_cast<char *>(&med), sizeof(Medicine));
+          cout << "\nMedicamento (" << index << ") excluído com sucesso!\n";
+        }
+        else
+        {
+          Validation::showInvalidCommandError("Medicamento já está excluído!");
+        }
+      }
+      else
+      {
+        Validation::showInvalidCommandError("Medicamento não encontrado!");
+      }
+
+      binfile.close();
+    }
+    else
+    {
+      cerr << "Erro: Não foi possível abrir o arquivo binário para leitura." << endl;
+      binfile.close();
+    }
+  }
+
   bool completelyRemoveMedicineFromFile(fstream &fileMedicine, Medicine *med)
   {
     // TODO implement
