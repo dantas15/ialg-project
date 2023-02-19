@@ -3,8 +3,8 @@
 - Repo no Github: https://github.com/ist4/ialg-project
 
 ## Integrantes
-- Gustavo Dantas Galote (@ist4)
-- Elian Fernando
+- Gustavo Dantas Galote [@ist4](https://github.com/ist4)
+- Elian Fernando [@LiHypnos](https://github.com/LiHypnos)
 - Andre
 
 ## Linux
