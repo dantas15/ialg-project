@@ -22,12 +22,12 @@ using namespace std;
 
 using namespace DefaultInputs;
 
-// Pages headers
-#include "src/headers/intro.h"
-#include "src/headers/importDataFromCSV.h"
-#include "src/headers/exportDataFromCSV.h"
-#include "src/headers/viewAllItems.h"
-#include "src/headers/create.h"
+// Pages screens
+#include "src/screens/intro.h"
+#include "src/screens/importDataFromCSV.h"
+#include "src/screens/exportDataFromCSV.h"
+#include "src/screens/viewAllItems.h"
+#include "src/screens/create.h"
 
 const char DEFAULT_COMMAND = Navigation::MAIN;
 
