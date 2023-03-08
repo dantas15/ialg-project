@@ -28,6 +28,55 @@ namespace Binary
     return fileSize;
   }
 
+  Medicine *getMedicinesPagination(Medicine *oldMed, int currentPage, int limit, int &totalPages)
+  {
+    delete[] oldMed;
+    ifstream binfile(BINARY_FILENAME, ios::in | ios::binary);
+    Medicine *medicinesRead = new Medicine[limit];
+
+    if (binfile.is_open())
+    {
+      binfile.seekg(0, ios::end);
+
+      int totalMeds = binfile.tellg() / sizeof(Medicine);
+      int remainingItemsLastPage = totalMeds % limit;
+      totalPages = 0;
+      cout << remainingItemsLastPage;
+
+      if (remainingItemsLastPage == 0)
+      {
+        totalPages = totalMeds / limit;
+      }
+      else
+      {
+        totalPages = (totalMeds / limit) + 1;
+      }
+
+      int bitsFrom = (currentPage - 1) * sizeof(Medicine) * limit;
+
+      binfile.seekg(bitsFrom, ios::beg);
+      int bitsTo = bitsFrom + sizeof(Medicine) * limit;
+      cout << endl
+           << bitsFrom << " " << bitsTo << endl;
+
+      if (currentPage < totalPages || remainingItemsLastPage == 0)
+      {
+        binfile.read(reinterpret_cast<char *>(medicinesRead), bitsTo);
+      }
+      else if (remainingItemsLastPage > 0 && currentPage == totalPages)
+      {
+        binfile.read(reinterpret_cast<char *>(medicinesRead), bitsTo - (limit - remainingItemsLastPage) * sizeof(Medicine));
+      }
+    }
+    else
+    {
+      cerr << "Erro: Não foi possível abrir o arquivo binário para leitura." << endl;
+    }
+
+    binfile.close();
+    return medicinesRead;
+  }
+
   void displayMedicines()
   {
     ifstream binfile(BINARY_FILENAME, ios::in | ios::binary);

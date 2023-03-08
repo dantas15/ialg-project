@@ -63,6 +63,69 @@ namespace ViewAllItems
 
   void showByPage(int &sortType)
   {
+    int currentPage = 1, totalPages = 0;
+    string command = "";
+
+    Medicine *paginatedMedicines = new Medicine[PAGE_SIZE];
+
+    paginatedMedicines = Binary::getMedicinesPagination(paginatedMedicines, currentPage, PAGE_SIZE, totalPages);
+
+    clearConsole();
+    showNavigationMenu();
+    displayDataAsTable(paginatedMedicines, 10, currentPage, totalPages);
+    cout << "Insira um comando: ";
+    cin >> command;
+
+    while (command != "-1")
+    {
+      if (command[0] == Navigation::DELETE_ITEM || command[0] == Navigation::EDIT_ITEM)
+      {
+        cout << "idk";
+      }
+      else if (command[0] == NEXT_PAGE || command[0] == PREVIOUS_PAGE || command[0] == SPECIFIC_PAGE_PREFIX)
+      {
+        switch (command[0])
+        {
+        case NEXT_PAGE:
+          if (currentPage == totalPages)
+          {
+            cout << "\nVocê já está na última página\n";
+          }
+          else
+          {
+            currentPage++;
+          }
+          break;
+        case PREVIOUS_PAGE:
+          if (currentPage == 1)
+          {
+            cout << "\nVocê já está na primeira página\n";
+          }
+          else
+          {
+            currentPage--;
+          }
+          break;
+        case SPECIFIC_PAGE_PREFIX:
+          int page = stoi(command.substr(1));
+          if (page < 1 || page > totalPages)
+          {
+            cout << "\nPágina inválida\n";
+          }
+          else
+          {
+            currentPage = page;
+          }
+          break;
+        }
+        showNavigationMenu();
+        paginatedMedicines = Binary::getMedicinesPagination(paginatedMedicines, currentPage, PAGE_SIZE, totalPages);
+        displayDataAsTable(paginatedMedicines, PAGE_SIZE, currentPage, totalPages);
+        cout << "Insira um comando: ";
+        cin >> command;
+      };
+      delete[] paginatedMedicines;
+    }
   }
   void showAll(Medicine *meds, int &medsQuantity)
   {
